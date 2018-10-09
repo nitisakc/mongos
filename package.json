@@ -1,0 +1,25 @@
+{
+  "name": "mongos",
+  "version": "1.0.0",
+  "description": "MongoDB Web API Service",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nitisakc/mongos.git"
+  },
+  "author": "Nitisak Chancham",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nitisakc/mongos/issues"
+  },
+  "homepage": "https://github.com/nitisakc/mongos#readme",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.3",
+    "mongodb": "^3.1.6"
+  },
+  "connStr": "mongodb://portal:1q2w3e4r@192.168.1.9:27017,192.168.1.5:27017,192.168.55.45:27017/portal?authSource=admin&replicaSet=rs0&slaveOk=false"
+}
