@@ -35,7 +35,43 @@ app.post('/find', function (req, res) {
 			docs: docs 
 		});
 	});
-})
+});
+app.post('/insert', function (req, res) {
+	console.log(req.body);
+
+	var db = req.body.db;
+	var coll = req.body.coll;
+	var data = req.body.data;
+	data = data == undefined ? { } : data;
+
+	console.log(data);
+	mgdb.insert(db, coll, data, (err, docs)=>{
+		console.dir(err, result);
+		res.send({ 
+			err: err, 
+			result: result 
+		});
+	});
+});
+app.post('/updateone', function (req, res) {
+	console.log(req.body);
+
+	var db = req.body.db;
+	var coll = req.body.coll;
+	var query = req.body.query;
+	query = query == undefined ? { } : query;
+	var data = req.body.data;
+	data = data == undefined ? { } : data;
+
+	console.log(data);
+	mgdb.updateOne(db, coll, query, data, (err, docs)=>{
+		console.dir(err, result);
+		res.send({ 
+			err: err, 
+			result: result 
+		});
+	});
+});
 
 var server = http.createServer(app);
 server.listen(port);

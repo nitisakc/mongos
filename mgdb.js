@@ -63,7 +63,7 @@ module.exports = {
 	        .then((obj) => {
 	        	//console.log('Updated - ' + obj);
 				client.close();
-	        	callback(obj);
+	        	callback(null, obj);
 	        })
 	        .catch((err) => {
 	        	//console.log('Error: ' + err);
