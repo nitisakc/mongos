@@ -20,6 +20,7 @@ app.get('/test/:a/:b/:c', function (req, res) {
 	res.send({ a, b, c });
 });
 app.get('/status', function (req, res) {
+	console.log('STATUS');
 	res.send('OK');
 	
 });
@@ -75,7 +76,7 @@ app.post('/insert', function (req, res) {
 	data = data == undefined ? { } : data;
 
 	console.log(data);
-	mgdb.insert(db, coll, data, (err, docs)=>{
+	mgdb.insert(db, coll, data, (err, result)=>{
 		console.dir(err, result);
 		res.send({ 
 			err: err, 
@@ -94,7 +95,7 @@ app.post('/updateone', function (req, res) {
 	data = data == undefined ? { } : data;
 
 	console.log(data);
-	mgdb.updateOne(db, coll, query, data, (err, docs)=>{
+	mgdb.updateOne(db, coll, query, data, (err, result)=>{
 		console.dir(err, result);
 		res.send({ 
 			err: err, 
