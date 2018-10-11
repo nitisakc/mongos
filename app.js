@@ -15,16 +15,46 @@ app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   next();
 });
-
+app.get('/test/:a/:b/:c', function (req, res) {
+	let { a, b, c } = req.params;
+	res.send({ a, b, c });
+});
 app.get('/status', function (req, res) {
 	res.send('OK');
+	
+});
+app.get('/findtest', function (req, res) {
+	mgdb.find('portal', 'probsum', { $or: [ {inform: "430376"},{login: "430376"} ] }, (err, docs)=>{
+		console.dir(err, docs);
+		res.send({ 
+			err: err, 
+			docs: docs 
+		});
+	});
+});
+app.post('/aggregate', function (req, res) {
+	console.log('aggregate', req.body);
+
+	let db = req.body.db;
+	let coll = req.body.coll;
+	let query = req.body.query;
+	query = query == undefined ? { } : query;
+
+	console.log(query);
+	mgdb.aggregate(db, coll, query, (err, docs)=>{
+		console.dir(err, docs);
+		res.send({ 
+			err: err, 
+			docs: docs 
+		});
+	});
 });
 app.post('/find', function (req, res) {
-	console.log(req.body);
+	console.log('find', req.body);
 
-	var db = req.body.db;
-	var coll = req.body.coll;
-	var query = req.body.query;
+	let db = req.body.db;
+	let coll = req.body.coll;
+	let query = req.body.query;
 	query = query == undefined ? { } : query;
 
 	console.log(query);
@@ -37,11 +67,11 @@ app.post('/find', function (req, res) {
 	});
 });
 app.post('/insert', function (req, res) {
-	console.log(req.body);
+	console.log('insert', req.body);
 
-	var db = req.body.db;
-	var coll = req.body.coll;
-	var data = req.body.data;
+	let db = req.body.db;
+	let coll = req.body.coll;
+	let data = req.body.data;
 	data = data == undefined ? { } : data;
 
 	console.log(data);
@@ -54,13 +84,13 @@ app.post('/insert', function (req, res) {
 	});
 });
 app.post('/updateone', function (req, res) {
-	console.log(req.body);
+	console.log('updateone', req.body);
 
-	var db = req.body.db;
-	var coll = req.body.coll;
-	var query = req.body.query;
+	let db = req.body.db;
+	let coll = req.body.coll;
+	let query = req.body.query;
 	query = query == undefined ? { } : query;
-	var data = req.body.data;
+	let data = req.body.data;
 	data = data == undefined ? { } : data;
 
 	console.log(data);
@@ -75,10 +105,3 @@ app.post('/updateone', function (req, res) {
 
 var server = http.createServer(app);
 server.listen(port);
-
-// mgdb.find('portal', 'probsum', {}, (err, docs)=>{
-// 		console.dir({ 
-// 			err: err, 
-// 			docs: docs 
-// 		});
-// 	});
