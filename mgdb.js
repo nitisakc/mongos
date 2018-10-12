@@ -7,14 +7,6 @@ const assert = require('assert');
 
 
 const connect = function(dbName, callback, i){
-	// MongoClient.connect(pjson.connStr, { useNewUrlParser: true }, function(err, client) {
-	// 	assert.equal(null, err);
-	// 	//console.log("Connected correctly to server");
-
-	// 	const db = client.db(dbName);
-	// 	callback(db, client);
-	// 	//client.close();
-	// });
 
 	MongoClient.connect(pjson.connStr, { useNewUrlParser: true }).then((client) => {
 		const db = client.db(dbName);
